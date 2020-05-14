@@ -1,0 +1,155 @@
+<mvc:View controllerName="Display.outBound_Delivery.controller.Delivery_view" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m"
+	xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:t="sap.ui.table">
+	<App id="app">
+		<Page class="sapUiContentPadding" title="出货报表" showHeader="true">
+			<content>
+				<f:Form>
+					<f:layout>
+						<f:ResponsiveGridLayout labelSpanL="3" labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="3" columnsM="2"/>
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement>
+									<f:fields>
+										<l:HorizontalLayout>
+											<Text text="銷售組織:" width="4rem" textAlign="Begin"/>
+											<Input width="9rem" id="SalesOrganizationS" value="{/Sel/SalesOrganizationS}" editable="true"/>
+											<Text text="至" width="2em" textAlign="Center"/>
+											<Input width="9rem" id="SalesOrganizationE" value="{/Sel/SalesOrganizationE}" editable="true"/>
+										</l:HorizontalLayout>
+										<l:HorizontalLayout>
+											<Text text="交貨單:" width="4rem" textAlign="Begin"/>
+											<Input width="9rem" id="DeiveryS" value="{/Sel/DeiveryS}" editable="true"/>
+											<Text text="至" width="2em" textAlign="Center"/>
+											<Input width="9rem" id="DeiveryE" value="{/Sel/DeiveryE}" editable="true"/>
+										</l:HorizontalLayout>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<l:HorizontalLayout>
+											<Text text="交貨日期:" width="4rem" textAlign="Begin"/>
+											<DatePicker id="DeliveryDateS" value="{path:'/Sel/DeliveryDateS'}" width="9rem" displayFormat="yyyy-MM-dd" placeholder=" "/>
+											<!--<Input width="9rem" id="DeliveryDateS" value="{/Sel/DeliveryDateS}" editable="true"/>-->
+											<Text text="至" width="2em" textAlign="Center"/>
+											<DatePicker id="DeliveryDateE" value="{path:'/Sel/DeliveryDateE'}" width="9rem" displayFormat="yyyy-MM-dd" placeholder=" "/>
+											<!--<Input width="9rem" id="DeliveryDateE" value="{/Sel/DeliveryDateE}" editable="true"/>-->
+										</l:HorizontalLayout>
+										<l:HorizontalLayout>
+											<Text text="客戶號:" width="4rem" textAlign="Begin"/>
+											<Input width="9rem" id="CustomerS" value="{/Sel/CustomerS}" editable="true"/>
+											<Text text="至" width="2em" textAlign="Center"/>
+											<Input width="9rem" id="CustomerE" value="{/Sel/CustomerE}" editable="true"/>
+										</l:HorizontalLayout>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement>
+									<f:fields>
+										<l:HorizontalLayout>
+											<Text text="物料號:" width="4rem" textAlign="Begin"/>
+											<Input width="9rem" id="MaterialS" value="{/Sel/MaterialS}" editable="true"/>
+											<Text text="至" width="2em" textAlign="Center"/>
+											<Input width="9rem" id="MaterialE" value="{/Sel/MaterialE}" editable="true"/>
+										</l:HorizontalLayout>
+										<l:HorizontalLayout>
+											<!--<Text text="序列號:" width="4rem" textAlign="Begin"/>-->
+											<!--<Input width="9rem" id="SerialNumberS" value="{/Sel/SerialNumberS}" editable="true"/>-->
+											<!--<Text text="至" width="2em" textAlign="Center"/>-->
+											<!--<Input width="9rem" id="SerialNumberE" value="{/Sel/SerialNumberE}" editable="true"/>-->
+										</l:HorizontalLayout>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+			</content>
+			<content>
+				<t:Table rows="{/DeliveryList}" selectionMode="None" id="DisplayTable" visibleRowCount="15">
+					<t:columns>
+						<t:Column hAlign="Center">
+							<Label text="交貨日期"/>
+							<t:template>
+								<Text text="{path:'DeliveryDate',formatter:'.formatter.date'}"/>
+							</t:template>
+						</t:Column>
+						<t:Column hAlign="Center">
+							<Label text="實際發貨日期"/>
+							<t:template>
+								<Text text="{path:'ActualGoodsMovementDate',formatter:'.formatter.date'}"/>
+							</t:template>
+						</t:Column>
+						<t:Column hAlign="Center">
+							<Label text="交貨單"/>
+							<t:template>
+								<Text text="{DeliveryDocument}"/>
+							</t:template>
+						</t:Column>
+						<t:Column hAlign="Center">
+							<Label text="客戶號"/>
+							<t:template>
+								<Text text="{SoldToParty}"/>
+							</t:template>
+						</t:Column>
+						<t:Column hAlign="Center">
+							<Label text="客戶名稱"/>
+							<t:template>
+								<Text text="{BusinessPartnerName}"/>
+							</t:template>
+						</t:Column>
+						<t:Column hAlign="Center">
+							<Label text="客戶PO號"/>
+							<t:template>
+								<Text text="{PurchaseOrderByCustomer}"/>
+							</t:template>
+						</t:Column>
+						<t:Column hAlign="Center">
+							<Label text="行項目"/>
+							<t:template>
+								<Text text="{DeliveryDocumentItem}"/>
+							</t:template>
+						</t:Column>
+						<t:Column hAlign="Center" width="10rem">
+							<Label text="物料號"/>
+							<t:template>
+								<Text text="{Material}"/>
+							</t:template>
+						</t:Column>
+						<t:Column hAlign="Center" width="12rem">
+							<Label text="物料描述"/>
+							<t:template>
+								<Text text="{DeliveryDocumentItemText}"/>
+							</t:template>
+						</t:Column>
+						<t:Column hAlign="Center">
+							<Label text="序列號"/>
+							<t:template>
+								<Text text="{SerialNumber}"/>
+							</t:template>
+						</t:Column>
+						<t:Column hAlign="Center" visible="false">
+							<Label text="組態"/>
+							<t:template>
+								<Text text="{ProductConfiguration}"/>
+							</t:template>
+						</t:Column>
+						<t:Column hAlign="Center">
+							<Label text="銷售組織"/>
+							<t:template>
+								<Text text="{SalesOrganization}"/>
+							</t:template>
+						</t:Column>
+					</t:columns>
+				</t:Table>
+			</content>
+			<footer>
+				<OverflowToolbar>
+					<ToolbarSpacer/>
+					<Button text="查询" id="butSubmit" type="Accept" press="handleSearch" width="6rem"/>
+					<Button text="下载" id="butDownload" type="Accept" press="handleDownload" width="6rem" visible="true"/>
+				</OverflowToolbar>
+			</footer>
+		</Page>
+	</App>
+</mvc:View>
